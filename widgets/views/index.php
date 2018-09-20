@@ -42,13 +42,11 @@ use yii\widgets\Pjax;
                 ],
                 $listViewConfig
             )); ?>
-            <?php if (!Yii::$app->user->isGuest) : ?>
-                <?php echo $this->render('_form', [
-                    'commentModel' => $commentModel,
-                    'formId' => $formId,
-                    'encryptedEntity' => $encryptedEntity,
-                ]); ?>
-            <?php endif; ?>
+            <?php echo $this->render('_form', [
+                'commentModel' => $commentModel,
+                'formId' => $formId,
+                'encryptedEntity' => $encryptedEntity,
+            ]); ?>
         </div>
     </div>
     <?php Pjax::end(); ?>
