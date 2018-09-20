@@ -47,7 +47,10 @@ use yii\widgets\Pjax;
                 'formId' => $formId,
                 'encryptedEntity' => $encryptedEntity,
             ]); ?>
+
+
+
         </div>
     </div>
-    <?php Pjax::end(); ?>
+    <?php Pjax::end();  // test ?>
 </div>
