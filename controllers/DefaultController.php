@@ -2,6 +2,7 @@
 
 namespace yii2mod\comments\controllers;
 
+use common\models\user\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -74,7 +75,7 @@ class DefaultController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => [User::ROLE_ADMIN],
                     ],
                 ],
             ],
@@ -106,6 +107,9 @@ class DefaultController extends Controller
     {
         /* @var $commentModel CommentModel */
         $commentModel = Yii::createObject($this->getModule()->commentModelClass);
+        if (\Yii::$app->user->isGuest) {
+            $commentModel->setScenario(CommentModel::SCENARIO_GUEST);
+        }
         $event = Yii::createObject(['class' => CommentEvent::class, 'commentModel' => $commentModel]);
         $commentModel->setAttributes($this->getCommentAttributesFromEntity($entity));
         $this->trigger(self::EVENT_BEFORE_CREATE, $event);

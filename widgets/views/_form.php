@@ -21,6 +21,31 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?php echo $form->field($commentModel, 'content', ['template' => '{input}{error}'])->textarea(['placeholder' => Yii::t('yii2mod.comments', 'Add a comment...'), 'rows' => 4, 'data' => ['comment' => 'content']]); ?>
+
+    <?php if (\Yii::$app->user->isGuest) : ?>
+        <div class="row">
+            <div class="col-sm-6">
+                <?php
+                echo $form
+                    ->field($commentModel, 'email', ['template' => '{input}{error}'])
+                    ->textInput([
+                        'placeholder' => Yii::t('yii2mod.comments', 'E-mail'),
+                        'data' => ['comment' => 'email'],
+                    ]);
+                ?>
+            </div>
+            <div class="col-sm-6">
+                <?php
+                echo $form
+                    ->field($commentModel, 'username', ['template' => '{input}{error}'])
+                    ->textInput([
+                        'placeholder' => Yii::t('yii2mod.comments', 'Username'),
+                        'data' => ['comment' => 'username'],
+                    ]);
+                ?>
+            </div>
+        </div>
+    <?php endif; ?>
     <?php echo $form->field($commentModel, 'parentId', ['template' => '{input}'])->hiddenInput(['data' => ['comment' => 'parent-id']]); ?>
     <div class="comment-box-partial">
         <div class="button-container show">

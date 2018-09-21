@@ -14,6 +14,7 @@ use yii2mod\comments\traits\ModuleTrait;
 use yii2mod\moderation\enums\Status;
 use yii2mod\moderation\ModerationBehavior;
 use yii2mod\moderation\ModerationQuery;
+use yii\web\IdentityInterface;
 
 /**
  * Class CommentModel
@@ -31,6 +32,10 @@ use yii2mod\moderation\ModerationQuery;
  * @property int $status
  * @property int $createdAt
  * @property int $updatedAt
+ * @property string $username
+ * @property string $email
+ *
+ * @property \common\models\user\User $author
  *
  * @method ActiveRecord makeRoot()
  * @method ActiveRecord appendTo($node)
@@ -43,6 +48,7 @@ class CommentModel extends ActiveRecord
     use ModuleTrait;
 
     const SCENARIO_MODERATION = 'moderation';
+    const SCENARIO_GUEST = 'guest';
 
     /**
      * @var null|array|ActiveRecord[] comment children
@@ -63,6 +69,8 @@ class CommentModel extends ActiveRecord
     public function rules()
     {
         return [
+            [['username', 'email'], 'required', 'on' => self::SCENARIO_GUEST],
+            [['email'], 'email', 'on' => self::SCENARIO_GUEST],
             [['entity', 'entityId'], 'required'],
             ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Comment cannot be blank.')],
             [['content', 'entity', 'relatedTo', 'url'], 'string'],
@@ -317,8 +325,11 @@ class CommentModel extends ActiveRecord
      */
     public function getAuthorName()
     {
-        if ($this->author->hasMethod('getUsername')) {
-            return $this->author->getUsername();
+        if (!$this->author) {
+            return $this->username;
+        }
+        if ($this->author->profile->first_name || $this->author->profile->last_name) {
+            return $this->author->profile->getFullNameEncoded();
         }
 
         return $this->author->username;
@@ -339,7 +350,7 @@ class CommentModel extends ActiveRecord
      */
     public function getAvatar()
     {
-        if ($this->author->hasMethod('getAvatar')) {
+        if ($this->author && $this->author->hasMethod('getAvatar')) {
             return $this->author->getAvatar();
         }
 
@@ -370,7 +381,7 @@ class CommentModel extends ActiveRecord
      */
     public function getCommentsCount()
     {
-        return (int) static::find()
+        return (int)static::find()
             ->approved()
             ->andWhere(['entity' => $this->entity, 'entityId' => $this->entityId])
             ->count();

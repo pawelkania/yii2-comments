@@ -142,6 +142,9 @@ class Comment extends Widget
             'entity' => $this->entity,
             'entityId' => $this->entityId,
         ]);
+        if (\Yii::$app->user->isGuest) {
+            $commentModel->setScenario(CommentModel::SCENARIO_GUEST);
+        }
         $commentDataProvider = $this->getCommentDataProvider($commentClass);
 
         return $this->render($this->commentView, [

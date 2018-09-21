@@ -2,6 +2,7 @@
 
 namespace yii2mod\comments\controllers;
 
+use common\models\user\User;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,7 +53,7 @@ class ManageController extends Controller
         'rules' => [
             [
                 'allow' => true,
-                'roles' => ['admin'],
+                'roles' => [User::ROLE_ADMIN],
             ],
         ],
     ];
