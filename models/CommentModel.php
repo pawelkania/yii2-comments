@@ -34,6 +34,7 @@ use yii\web\IdentityInterface;
  * @property int $updatedAt
  * @property string $username
  * @property string $email
+ * @property int $rating
  *
  * @property \common\models\user\User $author
  *
@@ -77,8 +78,9 @@ class CommentModel extends ActiveRecord
             ['status', 'default', 'value' => Status::APPROVED],
             ['status', 'in', 'range' => Status::getConstantsByName()],
             ['level', 'default', 'value' => 1],
+            ['rating', 'number', 'max' => 5],
             ['parentId', 'validateParentID', 'except' => static::SCENARIO_MODERATION],
-            [['entityId', 'parentId', 'status', 'level'], 'integer'],
+            [['entityId', 'parentId', 'status', 'level', 'rating'], 'integer'],
         ];
     }
 
@@ -161,15 +163,18 @@ class CommentModel extends ActiveRecord
             'url' => Yii::t('yii2mod.comments', 'Url'),
             'createdAt' => Yii::t('yii2mod.comments', 'Created date'),
             'updatedAt' => Yii::t('yii2mod.comments', 'Updated date'),
+            'email' => Yii::t('yii2mod.comments', 'email'),
+            'username' => Yii::t('yii2mod.comments', 'Username'),
+            'rating' => Yii::t('yii2mod.comments', 'Rating'),
         ];
     }
 
     /**
-     * @return ModerationQuery
+     * @return CommentQuery
      */
     public static function find()
     {
-        return new ModerationQuery(get_called_class());
+        return new CommentQuery(get_called_class());
     }
 
     /**
@@ -325,9 +330,10 @@ class CommentModel extends ActiveRecord
      */
     public function getAuthorName()
     {
-        if (!$this->author) {
+        if ($this->username || !$this->author) {
             return $this->username;
         }
+
         if ($this->author->profile->first_name || $this->author->profile->last_name) {
             return $this->author->profile->getFullNameEncoded();
         }
@@ -385,6 +391,17 @@ class CommentModel extends ActiveRecord
             ->approved()
             ->andWhere(['entity' => $this->entity, 'entityId' => $this->entityId])
             ->count();
+    }
+
+    public function getOveralRating()
+    {
+        $rating = static::find()
+            ->withRating()
+            ->approved()
+            ->andWhere(['entity' => $this->entity, 'entityId' => $this->entityId])
+            ->average('rating');
+
+        return round($rating, 1);
     }
 
     /**

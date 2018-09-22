@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'id',
                 'contentOptions' => ['style' => 'max-width: 50px;'],
             ],
+            'rating',
             [
                 'attribute' => 'content',
                 'contentOptions' => ['style' => 'max-width: 350px;'],

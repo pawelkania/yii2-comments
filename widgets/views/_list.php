@@ -4,6 +4,7 @@ use common\models\user\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii2mod\editable\Editable;
+use alfa6661\widgets\Raty;
 
 /* @var $this \yii\web\View */
 /* @var $model \yii2mod\comments\models\CommentModel */
@@ -23,6 +24,16 @@ use yii2mod\editable\Editable;
                     <?php echo Html::a("<span class='glyphicon glyphicon-share-alt'></span> " . Yii::t('yii2mod.comments', 'Reply'), '#', ['class' => 'reply-comment-btn', 'data' => ['action' => 'reply', 'comment-id' => $model->id]]); ?>
                 <?php endif; ?>
             </div>
+            <?php if ($model->rating): ?>
+                <?= Raty::widget([
+                    'name' => "rating-{$model->id}",
+                    'value' => $model->rating,
+                    'pluginOptions' => [
+                        'readOnly' => true,
+                        'starType' => 'i',
+                    ],
+                ]); ?>
+            <?php endif; ?>
             <div class="comment-author-name">
                 <span><?php echo $model->getAuthorName(); ?></span>
                 <?php echo Html::a($model->getPostedDate(), $model->getAnchorUrl(), ['class' => 'comment-date']); ?>

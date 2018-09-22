@@ -1,8 +1,10 @@
 <?php
 
+use pawelkania\widgets\barrating\BarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use alfa6661\widgets\Raty;
 
 /* @var $this \yii\web\View */
 /* @var $commentModel \yii2mod\comments\models\CommentModel */
@@ -20,6 +22,12 @@ use yii\widgets\ActiveForm;
         'validateOnBlur' => false,
     ]); ?>
 
+    <?= $form->field($commentModel, 'rating')->widget(Raty::class, [
+        'pluginOptions' => [
+            'starType' => 'i',
+            'cancel' => true,
+        ],
+    ]); ?>
     <?php echo $form->field($commentModel, 'content', ['template' => '{input}{error}'])->textarea(['placeholder' => Yii::t('yii2mod.comments', 'Add a comment...'), 'rows' => 4, 'data' => ['comment' => 'content']]); ?>
 
     <?php if (\Yii::$app->user->isGuest) : ?>

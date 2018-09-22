@@ -3,6 +3,7 @@
 use yii\helpers\ArrayHelper;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use alfa6661\widgets\Raty;
 
 /* @var $this \yii\web\View */
 /* @var $commentModel \yii2mod\comments\models\CommentModel */
@@ -21,6 +22,14 @@ use yii\widgets\Pjax;
             <div class="title-block clearfix">
                 <h3 class="h3-body-title">
                     <?php echo Yii::t('yii2mod.comments', 'Comments ({0})', $commentModel->getCommentsCount()); ?>
+                    <?= Raty::widget([
+                        'name' => 'overal-rating',
+                        'value' => $commentModel->getOveralRating(),
+                        'pluginOptions' => [
+                            'readOnly' => true,
+                            'starType' => 'i',
+                        ],
+                    ]); ?>
                 </h3>
                 <div class="title-separator"></div>
             </div>
