@@ -90,7 +90,7 @@
 }
 
 .title-block .title-separator {
-    background: url("../images/title-pattern.png");
+    background: #e2e2e2;
     height: 5px;
     overflow: hidden;
     margin-top: 8px;
@@ -125,57 +125,6 @@
 
 .comment-box {
     margin-top: 15px;
-}
-
-.comment-box textarea {
-    background: #fdfdfd;
-    vertical-align: middle;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    padding: 5px 6px 4px;
-    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
-    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
-    border: 1px solid #c1c1c1;
-    font-size: 13px;
-    color: #333;
-    line-height: 17px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-    overflow: auto;
-    border-radius: 0;
-}
-
-.comment-box .comment-box-partial .comment-submit {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    font-size: 12px;
-    font-weight: normal;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0 15px;
-    border: 1px solid #008cc9;
-    border-radius: 3px;
-    height: 26px;
-    line-height: 26px;
-    cursor: pointer;
-    white-space: nowrap;
-    display: block;
-    color: #fff !important;
-    background: #008cc9 0 0;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    margin: 10px 0 0;
 }
 
 .comment-submit:focus {

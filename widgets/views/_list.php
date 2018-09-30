@@ -24,19 +24,21 @@ use alfa6661\widgets\Raty;
                     <?php echo Html::a("<span class='glyphicon glyphicon-share-alt'></span> " . Yii::t('yii2mod.comments', 'Reply'), '#', ['class' => 'reply-comment-btn', 'data' => ['action' => 'reply', 'comment-id' => $model->id]]); ?>
                 <?php endif; ?>
             </div>
-            <?php if ($model->rating): ?>
-                <?= Raty::widget([
-                    'name' => "rating-{$model->id}",
-                    'value' => $model->rating,
-                    'pluginOptions' => [
-                        'readOnly' => true,
-                        'starType' => 'i',
-                    ],
-                ]); ?>
-            <?php endif; ?>
-            <div class="comment-author-name">
+            <div class="comment-author-name d-i-b">
                 <span><?php echo $model->getAuthorName(); ?></span>
                 <?php echo Html::a($model->getPostedDate(), $model->getAnchorUrl(), ['class' => 'comment-date']); ?>
+            </div>
+            <div class="comment-rating d-i-b">
+                <?php if ($model->rating): ?>
+                    <?= Raty::widget([
+                        'name' => "rating-{$model->id}",
+                        'value' => $model->rating,
+                        'pluginOptions' => [
+                            'readOnly' => true,
+                            'starType' => 'i',
+                        ],
+                    ]); ?>
+                <?php endif; ?>
             </div>
             <div class="comment-body">
                 <?php if (Yii::$app->getModule('comment')->enableInlineEdit && Yii::$app->getUser()->can(User::ROLE_ADMIN)): ?>

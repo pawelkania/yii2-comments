@@ -22,6 +22,8 @@ use alfa6661\widgets\Raty;
             <div class="title-block clearfix">
                 <h3 class="h3-body-title">
                     <?php echo Yii::t('yii2mod.comments', 'Comments ({0})', $commentModel->getCommentsCount()); ?>
+                </h3>
+                <div class="pull-right">
                     <?= Raty::widget([
                         'name' => 'overal-rating',
                         'value' => $commentModel->getOveralRating(),
@@ -30,9 +32,10 @@ use alfa6661\widgets\Raty;
                             'starType' => 'i',
                         ],
                     ]); ?>
-                </h3>
-                <div class="title-separator"></div>
+                </div>
             </div>
+            <hr/>
+
             <?php echo ListView::widget(ArrayHelper::merge(
                 [
                     'dataProvider' => $commentDataProvider,
