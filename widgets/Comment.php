@@ -190,6 +190,7 @@ class Comment extends Widget
     {
         $this->clientOptions['pjaxContainerId'] = '#' . $this->pjaxContainerId;
         $this->clientOptions['formSelector'] = '#' . $this->formId;
+        $this->clientOptions['submitBtnLoadingText'] = \Yii::t('yii2mod.comments', 'Loading...');
 
         return Json::encode($this->clientOptions);
     }
