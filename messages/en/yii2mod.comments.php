@@ -35,6 +35,7 @@ return [
     'Delete' => 'Delete',
     'Reply' => 'Reply',
     'Comments ({0})' => 'Comments ({0})',
+    'Comments ({n})' => 'Comments ({n})',
     'Comment cannot be blank.' => 'Comment cannot be blank.',
     'Comment has not been deleted. Please try again!' => 'Comment has not been deleted. Please try again!',
     'Add a comment...' => 'Add a comment...',
