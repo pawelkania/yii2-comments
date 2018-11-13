@@ -6,11 +6,13 @@ use alfa6661\widgets\Raty;
 /* @var $commentModel \yii2mod\comments\models\CommentModel */
 /* @var $showCommentCount bool */
 /* @var $showStars bool */
+/* @var $widgetId string */
 ?>
 <div class="rating">
     <?php if ($showStars): ?>
         <span class="rating-stars">
             <?= Raty::widget([
+                'id' => $widgetId . "-rating-{$commentModel->entityId}",
                 'name' => 'overal-rating',
                 'value' => $commentModel->getOveralRating(),
                 'pluginOptions' => [

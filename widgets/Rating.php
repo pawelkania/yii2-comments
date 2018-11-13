@@ -79,6 +79,7 @@ class Rating extends Widget
         return Html::tag(
             $this->tag,
             $this->render($this->view, [
+                'widgetId' => $this->id,
                 'commentModel' => $commentModel,
                 'showCommentCount' => $this->showCommentCount,
                 'showStars' => $this->showStars,
