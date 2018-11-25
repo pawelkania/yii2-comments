@@ -1,9 +1,12 @@
 <?php
 
+use frontend\modules\company\controllers\admin\CompanyController;
+use frontend\modules\company\models\Company;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\widgets\Pjax;
+use yii2mod\comments\models\CommentModel;
 use yii2mod\moderation\enums\Status;
 
 /* @var $this yii\web\View */
@@ -34,7 +37,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     return StringHelper::truncate($model->content, 100);
                 },
             ],
-            'attribute' => 'relatedTo',
+            [
+                'attribute' => 'relatedTo',
+                'value' => function (CommentModel $model) {
+                    $company = Company::findOne(str_replace('frontend\modules\company\models\Company:', '', $model->relatedTo));
+                    return Html::a(
+                        Html::encode($company->name),
+                        [CompanyController::ROUTE_INDEX, CompanyController::PARAM_COMPANY_NAME_FILTER => $company->name],
+                        ['data-pjax' => 0]
+                    );
+                },
+                'format' => 'raw',
+
+            ],
             [
                 'attribute' => 'createdBy',
                 'value' => function ($model) {
@@ -53,8 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'createdAt',
-                'value' => function ($model) {
-                    return Yii::$app->formatter->asDatetime($model->createdAt);
+                'value' => function (CommentModel $model) {
+                    return $model->getPostedDate();
                 },
                 'filter' => false,
             ],

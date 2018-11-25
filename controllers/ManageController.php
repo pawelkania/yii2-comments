@@ -99,7 +99,7 @@ class ManageController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->setScenario(CommentModel::SCENARIO_MODERATION);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', Yii::t('yii2mod.comments', 'Comment has been saved.'));
 

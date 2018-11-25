@@ -2,6 +2,8 @@
 
 namespace yii2mod\comments\models;
 
+use DateTime;
+use DateTimeZone;
 use paulzi\adjacencyList\AdjacencyListBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -13,8 +15,6 @@ use yii2mod\behaviors\PurifyBehavior;
 use yii2mod\comments\traits\ModuleTrait;
 use yii2mod\moderation\enums\Status;
 use yii2mod\moderation\ModerationBehavior;
-use yii2mod\moderation\ModerationQuery;
-use yii\web\IdentityInterface;
 
 /**
  * Class CommentModel
@@ -80,6 +80,13 @@ class CommentModel extends ActiveRecord
             ['level', 'default', 'value' => 1],
             ['rating', 'number', 'max' => 5],
             ['parentId', 'validateParentID', 'except' => static::SCENARIO_MODERATION],
+            [
+                ['createdAt'],
+                'datetime',
+                'format' => 'php:Y-m-d H;i:s',
+                'message' => \Yii::t('yii2mod.comments', 'Invalid datetime format. Correct example: "2018-11-23 16:30:15"'),
+                'on' => static::SCENARIO_MODERATION,
+            ],
             [['entityId', 'parentId', 'status', 'level', 'rating'], 'integer'],
         ];
     }
@@ -120,16 +127,15 @@ class CommentModel extends ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'createdAt',
                 'updatedAtAttribute' => 'updatedAt',
+                'value' => function () {
+                    return (new DateTime())->format('Y-m-d H:i:s');
+                },
             ],
             'purify' => [
                 'class' => PurifyBehavior::class,
                 'attributes' => ['content'],
                 'config' => [
-                    'HTML.SafeIframe' => true,
-                    'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                    'AutoFormat.Linkify' => true,
-                    'HTML.TargetBlank' => true,
-                    'HTML.Allowed' => 'a[href], iframe[src|width|height|frameborder], img[src]',
+                    'HTML.Allowed' => '',
                 ],
             ],
             'adjacencyList' => [
@@ -322,7 +328,8 @@ class CommentModel extends ActiveRecord
      */
     public function getPostedDate()
     {
-        return Yii::$app->formatter->asRelativeTime($this->createdAt);
+        $dateTime = new DateTime($this->createdAt, new DateTimeZone('Europe/warsaw'));
+        return Yii::$app->formatter->asRelativeTime($dateTime);
     }
 
     /**

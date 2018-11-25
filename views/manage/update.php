@@ -1,12 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\imperavi\Widget;
-use yii\widgets\ActiveForm;
-use yii2mod\moderation\enums\Status;
+use alfa6661\widgets\Raty;
 use dosamigos\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
-use alfa6661\widgets\Raty;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii2mod\moderation\enums\Status;
 
 /* @var $this yii\web\View */
 /* @var $model \yii2mod\comments\models\CommentModel */
@@ -34,6 +33,7 @@ $this->params['breadcrumbs'][] = Yii::t('yii2mod.comments', 'Update');
             'clientOptions' => ElFinder::ckeditorOptions(['elfinder', 'path' => 'files/cms']),
         ]) ?>
         <?php echo $form->field($model, 'status')->dropDownList(Status::listData()); ?>
+        <?php echo $form->field($model, 'createdAt')->textInput(); ?>
         <div class="form-group">
             <?php echo Html::submitButton(Yii::t('yii2mod.comments', 'Update'), ['class' => 'btn btn-primary']); ?>
             <?php echo Html::a(Yii::t('yii2mod.comments', 'Go Back'), ['index'], ['class' => 'btn btn-default']); ?>
