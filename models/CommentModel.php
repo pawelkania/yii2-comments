@@ -70,7 +70,7 @@ class CommentModel extends ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'email'], 'required', 'on' => self::SCENARIO_GUEST],
+            [['username'], 'required', 'on' => self::SCENARIO_GUEST],
             [['email'], 'email', 'on' => self::SCENARIO_GUEST],
             [['entity', 'entityId'], 'required'],
             ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Comment cannot be blank.')],
