@@ -83,7 +83,7 @@ class CommentModel extends ActiveRecord
             [
                 ['createdAt'],
                 'datetime',
-                'format' => 'php:Y-m-d H;i:s',
+                'format' => 'php:Y-m-d H:i:s',
                 'message' => \Yii::t('yii2mod.comments', 'Invalid datetime format. Correct example: "2018-11-23 16:30:15"'),
                 'on' => static::SCENARIO_MODERATION,
             ],
