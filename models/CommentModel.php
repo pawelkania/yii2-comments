@@ -329,7 +329,7 @@ class CommentModel extends ActiveRecord
     public function getPostedDate()
     {
         $dateTime = new DateTime($this->createdAt, new DateTimeZone('Europe/warsaw'));
-        return Yii::$app->formatter->asRelativeTime($dateTime);
+        return Yii::$app->formatter->asDatetime($dateTime, 'medium');
     }
 
     /**
