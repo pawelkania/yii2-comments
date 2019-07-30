@@ -25,8 +25,9 @@ use alfa6661\widgets\Raty;
                 <?php endif; ?>
             </div>
             <div class="comment-author-name d-i-b">
-                <span><?php echo $model->getAuthorName(); ?></span>
-                <?php echo Html::a($model->getPostedDate(), $model->getAnchorUrl(), ['class' => 'comment-date']); ?>
+                <span>
+                    <?php echo Html::a($model->getAuthorName(), $model->getAnchorUrl(), ['class' => 'comment-date']); ?>
+                </span>
             </div>
             <div class="comment-rating d-i-b">
                 <?php if ($model->rating): ?>
