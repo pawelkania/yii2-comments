@@ -73,7 +73,7 @@ class CommentModel extends ActiveRecord
             [['username'], 'required', 'on' => self::SCENARIO_GUEST],
             [['email'], 'email', 'on' => self::SCENARIO_GUEST],
             [['entity', 'entityId'], 'required'],
-            ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Comment cannot be blank.')],
+//            ['content', 'required', 'message' => Yii::t('yii2mod.comments', 'Comment cannot be blank.')],
             [['content', 'entity', 'relatedTo', 'url'], 'string'],
             ['status', 'default', 'value' => Status::APPROVED],
             ['status', 'in', 'range' => Status::getConstantsByName()],

@@ -28,7 +28,7 @@ use alfa6661\widgets\Raty;
             'cancel' => true,
         ],
     ]); ?>
-    <?php echo $form->field($commentModel, 'content', ['template' => '{input}{error}'])->textarea(['placeholder' => Yii::t('yii2mod.comments', 'Add a comment...'), 'rows' => 4, 'data' => ['comment' => 'content']]); ?>
+    <?php // echo $form->field($commentModel, 'content', ['template' => '{input}{error}'])->textarea(['placeholder' => Yii::t('yii2mod.comments', 'Add a comment...'), 'rows' => 4, 'data' => ['comment' => 'content']]); ?>
 
     <?php if (\Yii::$app->user->isGuest) : ?>
         <div class="row">

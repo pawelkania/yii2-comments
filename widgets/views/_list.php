@@ -52,7 +52,7 @@ use alfa6661\widgets\Raty;
                         ],
                     ]); ?>
                 <?php else: ?>
-                    <?php echo $model->getContent(); ?>
+                    <?php // echo $model->getContent(); ?>
                 <?php endif; ?>
             </div>
         </div>
